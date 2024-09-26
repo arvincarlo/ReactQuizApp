@@ -8,6 +8,7 @@ import Question from "./Question";
 
 const initialState = {
   questions: [],
+  index: 0,
 
   // 'loading', 'error', 'ready', 'active', 'finished'
   status: '',
@@ -38,7 +39,7 @@ function reducer(state, action) {
 
 export default function App() {
 
-  const [{questions, status}, dispatch] = useReducer(reducer, initialState);
+  const [{questions, status, index}, dispatch] = useReducer(reducer, initialState);
   const numQuestions = questions.length;
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function App() {
       {status === 'loading' && <Loader></Loader>}
       {status === 'error' && <Error></Error>}
       {status === 'ready' && <StartScreen numQuestions={numQuestions} dispatch={dispatch}/>}
-      {status === 'active' && <Question></Question>}
+      {status === 'active' && <Question question={questions[index]}></Question>}
     </Main>
   </div>
 }
